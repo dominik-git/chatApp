@@ -1,94 +1,64 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-
-import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    private String mDisplayName;
-    private ListView mChatListView;
-    private EditText mInputText;
-    private ImageButton mSendButton;
 
-    private DatabaseReference mDatabaseReference;
-    private ChatListAdapter mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setupDisplayedName();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mInputText = (EditText) findViewById(R.id.messageInput);
-        mSendButton = (ImageButton) findViewById(R.id.sendButton);
-        mChatListView = (ListView) findViewById(R.id.chat_list_view);
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottomNavigationView);
+//        BottomNavigationView.OnNavigationItemSelectedListener()
+//        Menu menu = bottomNavigationView.getMenu();
+//        this.onNavigationItemSelected(menu.findItem(R.id.action_favorites));
+        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new Login()).commit();
 
-        mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                sendMessage();
-                return true;
+
+    }
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            Fragment selectedFragment = null;
+            switch(menuItem.getItemId()){
+                case R.id.register:
+                    selectedFragment = new Register();
+                    break;
+                case R.id.login:
+                    selectedFragment = new Login();
+                    break;
+                case R.id.photo:
+                    selectedFragment = new Photo();
+                    break;
             }
-        });
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessage();
-            }
-        });
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+            return true;
+        };
+    };
 
-    }
-
-
-    private void setupDisplayedName() {
-        SharedPreferences prefs = getSharedPreferences(RegisterActivity.CHAT_PREFS, MODE_PRIVATE);
-        mDisplayName = prefs.getString(RegisterActivity.DISPLAY_NAME_KEY, null);
-        if (mDisplayName == null) {
-            mDisplayName = "";
-        }
-
-    }
-
-
-    private void sendMessage() {
-        System.out.println("send message");
-        String input = mInputText.getText().toString();
-        if(!input.equals("")){
-            InstantMessage message = new InstantMessage(input,mDisplayName);
-            mDatabaseReference.child("messages").push().setValue(message);
-            mInputText.setText("");
-        }
-
-    }
-
-    // TODO: Override the onStart() lifecycle method. Setup the adapter here.
-
-    @Override
-    public void onStart() {
-       super.onStart();
-       mAdapter = new ChatListAdapter(this,mDatabaseReference,mDisplayName);
-       mChatListView.setAdapter(mAdapter);
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAdapter.cleanup();
-    }
 }

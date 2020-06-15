@@ -3,13 +3,10 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,9 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // TODO: Add member variables here:
     private FirebaseAuth mAuth;
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private  Button mLoginButton;
@@ -56,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
 
-        // TODO: Grab an instance of FirebaseAuth
         mAuth= FirebaseAuth.getInstance();
 
 
@@ -91,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     System.out.println("Login not successful "+ task.getException());
                     ShowErrorDialog();
                 }else{
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainChatActivity.class);
                     finish();
                     startActivity(intent);
                 }
