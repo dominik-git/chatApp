@@ -24,17 +24,16 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.login_email);
-        mPasswordView = (EditText) findViewById(R.id.login_password);
+        mEmailView = findViewById(R.id.login_email);
+        mPasswordView = findViewById(R.id.login_password);
 
-        mLoginButton = findViewById(R.id.login_sign_in_button);
+        Button mLoginButton = findViewById(R.id.login_sign_in_button);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         if (email.equals("") || password.equals("")) {
             return;
         }
-        Toast.makeText(this, "Login...", Toast.LENGTH_SHORT);
+        Toast.makeText(this, "Login...", Toast.LENGTH_SHORT).show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

@@ -23,19 +23,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class RegisterFragment extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     // Constants
     public static final String CHAT_PREFS = "ChatPrefs";
     public static final String DISPLAY_NAME_KEY = "username";
-
-    private String mParam1;
-    private String mParam2;
 
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
@@ -45,48 +37,15 @@ public class RegisterFragment extends Fragment {
     // Firebase instance variables
     private FirebaseAuth mAuth;
 
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Register.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RegisterFragment newInstance(String param1, String param2) {
-        RegisterFragment fragment = new RegisterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_register, container, false);
         mAuth = FirebaseAuth.getInstance();
-        mEmailView = (AutoCompleteTextView) v.findViewById(R.id.register_email);
-        mPasswordView = (EditText) v.findViewById(R.id.register_password);
-        mConfirmPasswordView = (EditText) v.findViewById(R.id.register_confirm_password);
-        mUsernameView = (AutoCompleteTextView) v.findViewById(R.id.register_username);
+        mEmailView = v.findViewById(R.id.register_email);
+        mPasswordView = v.findViewById(R.id.register_password);
+        mConfirmPasswordView = v.findViewById(R.id.register_confirm_password);
+        mUsernameView = v.findViewById(R.id.register_username);
         Button mLoginButton = v.findViewById(R.id.register_sign_up_button);
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +113,7 @@ public class RegisterFragment extends Fragment {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         System.out.println(email + " " + password);
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 System.out.println("success" + task.getException());
@@ -169,6 +128,7 @@ public class RegisterFragment extends Fragment {
         });
     }
 
+    // TODO replace with navigation
     private void redirectToLogin() {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
 
@@ -176,12 +136,12 @@ public class RegisterFragment extends Fragment {
 
     private void saveDisplayName() {
         String displayName = mUsernameView.getText().toString();
-        SharedPreferences prefs = getActivity().getSharedPreferences(CHAT_PREFS, 0);
+        SharedPreferences prefs = requireActivity().getSharedPreferences(CHAT_PREFS, 0);
         prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
     private void ShowErrorDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title);
         AlertDialog dialog = builder.create();

@@ -24,7 +24,6 @@ public class MainChatActivity extends AppCompatActivity {
     private String mDisplayName;
     private ListView mChatListView;
     private EditText mInputText;
-    private ImageButton mSendButton;
 
     private DatabaseReference mDatabaseReference;
     private ChatListAdapter mAdapter;
@@ -36,9 +35,9 @@ public class MainChatActivity extends AppCompatActivity {
 
         setupDisplayedName();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        mInputText = (EditText) findViewById(R.id.messageInput);
-        mSendButton = (ImageButton) findViewById(R.id.sendButton);
-        mChatListView = (ListView) findViewById(R.id.chat_list_view);
+        mInputText = findViewById(R.id.messageInput);
+        ImageButton mSendButton = findViewById(R.id.sendButton);
+        mChatListView = findViewById(R.id.chat_list_view);
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -56,7 +55,6 @@ public class MainChatActivity extends AppCompatActivity {
 
     }
 
-
     private void setupDisplayedName() {
         SharedPreferences prefs = getSharedPreferences(RegisterActivity.CHAT_PREFS, MODE_PRIVATE);
         mDisplayName = prefs.getString(RegisterActivity.DISPLAY_NAME_KEY, null);
@@ -65,7 +63,6 @@ public class MainChatActivity extends AppCompatActivity {
         }
 
     }
-
 
     private void sendMessage() {
         System.out.println("send message");
@@ -77,8 +74,6 @@ public class MainChatActivity extends AppCompatActivity {
         }
 
     }
-
-    // TODO: Override the onStart() lifecycle method. Setup the adapter here.
 
     @Override
     public void onStart() {

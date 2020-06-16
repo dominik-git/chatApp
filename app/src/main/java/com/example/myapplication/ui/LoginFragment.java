@@ -2,11 +2,7 @@ package com.example.myapplication.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +10,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,60 +23,20 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private FirebaseAuth mAuth;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
 
-    private String mParam1;
-    private String mParam2;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Login.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
         mAuth = FirebaseAuth.getInstance();
-        mEmailView = (AutoCompleteTextView) v.findViewById(R.id.login_email);
-        mPasswordView = (EditText) v.findViewById(R.id.login_password);
+        mEmailView = v.findViewById(R.id.login_email);
+        mPasswordView = v.findViewById(R.id.login_password);
 
         Button mLoginButton = v.findViewById(R.id.login_sign_in_button);
 
@@ -95,13 +55,13 @@ public class LoginFragment extends Fragment {
         if (email.equals("") || password.equals("")) {
             return;
         }
-        Toast.makeText(getActivity(), "Login...", Toast.LENGTH_SHORT);
+        Toast.makeText(getActivity(), "Login...", Toast.LENGTH_SHORT).show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (!task.isSuccessful()) {
-                    System.out.println("Login not successful " + task.getException());
+                    Log.e("APP", "Login not successful " + task.getException());
                     ShowErrorDialog();
                 } else {
                     Intent intent = new Intent(getActivity(), MainChatActivity.class);
@@ -109,20 +69,13 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
-
-
     }
 
-    // TODO: Show error on screen with an alert dialog
-
     private void ShowErrorDialog() {
-        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // 2. Chain together various setter methods to set the dialog characteristics
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.login_dialog_message)
                 .setTitle(R.string.login_dialog_title);
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 }
