@@ -23,7 +23,7 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_webview, container, false);
+        View v = inflater.inflate(R.layout.fragment_about, container, false);
 
         WebView webView = v.findViewById(R.id.webview_widget);
         webView.loadUrl("https://s.ics.upjs.sk/~dominik_kolesar/AndroidWeb/");

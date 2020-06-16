@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_nav"
-    tools:ignore="UnusedNavigation"
+    android:id="@+id/nav_main"
     app:startDestination="@id/login">
 
     <fragment
@@ -22,8 +21,8 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
-        android:id="@+id/webview"
+        android:id="@+id/about"
         android:name="com.dkolesar.chatapp.ui.about.AboutFragment"
-        android:label="fragment_webview"
-        tools:layout="@layout/fragment_webview" />
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

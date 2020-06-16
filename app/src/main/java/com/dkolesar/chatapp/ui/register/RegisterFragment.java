@@ -131,7 +131,7 @@ public class RegisterFragment extends Fragment {
 
     // TODO replace with navigation
     private void redirectToLogin() {
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
 
     }
 
