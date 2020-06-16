@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Moja aplikácia</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_username">Používateľské meno</string>
+    <string name="prompt_password">Heslo</string>
+    <string name="prompt_password_again">Potvrdiť heslo</string>
+    <string name="prompt_msg">Napíšte správu</string>
+    <string name="action_sign_in">Prihlásiť sa alebo sa registrovať</string>
+    <string name="action_register">Registrovať sa</string>
+    <string name="action_sign_in_short">Prihlásiť sa</string>
+    <string name="action_sign_up">Registrovať sa</string>
+    <string name="action_send">Poslať</string>
+    <string name="error_invalid_email">Emailová adresa je neplatná</string>
+    <string name="error_invalid_password">Heslo je príliš krátke alebo sa nezhoduje</string>
+    <string name="error_incorrect_password">Heslo je nesprávne</string>
+    <string name="error_field_required">Toto pole je potrebné</string>
+    <string name="permission_rationale">"Je potrebné povolenie na prístup ku kuntaktom, aby sme mohli dopĺňať emaily."
+    </string>
+    <string name="dialog_message">Registrácia bola neúspešná!</string>
+    <string name="dialog_title">Chyba</string>
+    <string name="sample_message">správa</string>
+    <string name="login_dialog_title">Chyba</string>
+    <string name="login_dialog_message">Nesprávne používateľské meno alebo heslo</string>
+    <string name="photo_fragment">Uvítací fotofragment</string>
+    <string name="welcome">Vitajte!</string>
+    <string name="invalid_username">Neplatné používateľské meno</string>
+    <string name="invalid_password">Heslo musí mať menej ako 5 znakov</string>
+    <string name="login_failed">Prihlasovanie zlyhalo</string>
+    <string name="login_fragment">Prázdny prihlasovací fragment</string>
+    <string name="register_fragment">Prázdny registračný fragment</string>
+    <string name="hello_blank_fragment">Prázdny uvítací fragment</string>
+    <string name="action_about">O aplikácii</string>
+    <string name="action_photo">Fotografia</string>
+    <string name="action_login">Prihlásenie</string>
+</resources>

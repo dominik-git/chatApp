@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private  Button mLoginButton;
+    private Button mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +52,20 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
 
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
     }
 
     // Executed when Sign in button pressed
-    public void signInExistingUser(View v)   {
+    public void signInExistingUser(View v) {
         // TODO: Call attemptLogin() here
 
     }
 
     // Executed when Register button pressed
     public void registerNewUser(View v) {
-        Intent intent = new Intent(this, com.example.myapplication.RegisterActivity.class);
+        Intent intent = new Intent(this, RegisterActivity.class);
         finish();
         startActivity(intent);
     }
@@ -73,18 +74,18 @@ public class LoginActivity extends AppCompatActivity {
     private void attemptLogin() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        if(email.equals("") || password.equals("")){
+        if (email.equals("") || password.equals("")) {
             return;
         }
-        Toast.makeText(this,"Login...",Toast.LENGTH_SHORT);
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        Toast.makeText(this, "Login...", Toast.LENGTH_SHORT);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(!task.isSuccessful()){
-                    System.out.println("Login not successful "+ task.getException());
+                if (!task.isSuccessful()) {
+                    System.out.println("Login not successful " + task.getException());
                     ShowErrorDialog();
-                }else{
+                } else {
                     Intent intent = new Intent(LoginActivity.this, MainChatActivity.class);
                     finish();
                     startActivity(intent);
@@ -93,12 +94,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     // TODO: Show error on screen with an alert dialog
 
-    private void ShowErrorDialog(){
+    private void ShowErrorDialog() {
         // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // 2. Chain together various setter methods to set the dialog characteristics

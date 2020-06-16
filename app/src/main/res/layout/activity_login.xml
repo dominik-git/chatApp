@@ -8,7 +8,7 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingTop="10dp"
-    tools:context="com.example.myapplication.LoginActivity"
+    tools:context="com.example.myapplication.ui.LoginActivity"
     android:gravity="bottom">
 
 

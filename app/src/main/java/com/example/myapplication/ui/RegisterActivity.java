@@ -1,6 +1,5 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.register_password);
         mConfirmPasswordView = (EditText) findViewById(R.id.register_confirm_password);
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.register_username);
-
 
 
         // Keyboard sign in action
@@ -127,21 +126,21 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // TODO: Create a Firebase user
-    private void createFirebaseUser(){
-        String email= mEmailView.getText().toString();
-        String password= mPasswordView.getText().toString();
-        System.out.println(email+" "+ password);
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    private void createFirebaseUser() {
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        System.out.println(email + " " + password);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 System.out.println("success");
-                System.out.println("success"+task.getException());
-                if(!task.isSuccessful()){
+                System.out.println("success" + task.getException());
+                if (!task.isSuccessful()) {
 
                     ShowErrorDialog();
-                }else{
+                } else {
                     saveDisplayName();
-                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     finish();
                     startActivity(intent);
                 }
@@ -151,15 +150,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     // TODO: Save the display name to Shared Preferences
-    private void saveDisplayName(){
-        String displayName =  mUsernameView.getText().toString();
-        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS,0);
-        prefs.edit().putString(DISPLAY_NAME_KEY,displayName).apply();
+    private void saveDisplayName() {
+        String displayName = mUsernameView.getText().toString();
+        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS, 0);
+        prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
 
     // TODO: Create an alert dialog to show in case registration failed
-    private void ShowErrorDialog(){
+    private void ShowErrorDialog() {
         // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // 2. Chain together various setter methods to set the dialog characteristics

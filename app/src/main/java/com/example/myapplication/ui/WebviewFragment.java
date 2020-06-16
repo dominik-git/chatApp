@@ -1,5 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.myapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,13 +63,14 @@ public class WebviewFragment extends Fragment {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_webview, container, false);
 
-        webView = (WebView) v.findViewById(R.id.webview_widget);
+        webView = v.findViewById(R.id.webview_widget);
         webView.loadUrl("https://s.ics.upjs.sk/~dominik_kolesar/AndroidWeb/");
 
         // Enable Javascript

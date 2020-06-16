@@ -8,7 +8,7 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp"
     android:background="@color/light_purple"
-    tools:context="com.example.myapplication.MainChatActivity">
+    tools:context="com.example.myapplication.ui.MainChatActivity">
 
     <ListView
         android:id="@+id/chat_list_view"

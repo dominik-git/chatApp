@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.myapplication.data.ChatListAdapter;
+import com.example.myapplication.data.InstantMessage;
+import com.example.myapplication.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -67,8 +70,8 @@ public class MainChatActivity extends AppCompatActivity {
     private void sendMessage() {
         System.out.println("send message");
         String input = mInputText.getText().toString();
-        if(!input.equals("")){
-            InstantMessage message = new InstantMessage(input,mDisplayName);
+        if (!input.equals("")) {
+            InstantMessage message = new InstantMessage(input, mDisplayName);
             mDatabaseReference.child("messages").push().setValue(message);
             mInputText.setText("");
         }
@@ -79,9 +82,9 @@ public class MainChatActivity extends AppCompatActivity {
 
     @Override
     public void onStart() {
-       super.onStart();
-       mAdapter = new ChatListAdapter(this,mDatabaseReference,mDisplayName);
-       mChatListView.setAdapter(mAdapter);
+        super.onStart();
+        mAdapter = new ChatListAdapter(this, mDatabaseReference, mDisplayName);
+        mChatListView.setAdapter(mAdapter);
 
     }
 

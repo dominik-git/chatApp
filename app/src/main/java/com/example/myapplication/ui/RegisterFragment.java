@@ -1,12 +1,12 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -96,6 +97,7 @@ public class RegisterFragment extends Fragment {
         });
         return v;
     }
+
     private void attemptRegistration() {
 
         // Reset errors displayed in the form.
@@ -148,17 +150,17 @@ public class RegisterFragment extends Fragment {
     }
 
     // TODO: Create a Firebase user
-    private void createFirebaseUser(){
-        String email= mEmailView.getText().toString();
-        String password= mPasswordView.getText().toString();
-        System.out.println(email+" "+ password);
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+    private void createFirebaseUser() {
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        System.out.println(email + " " + password);
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("success"+task.getException());
-                if(!task.isSuccessful()){
+                System.out.println("success" + task.getException());
+                if (!task.isSuccessful()) {
                     ShowErrorDialog();
-                }else{
+                } else {
                     saveDisplayName();
                     redirectToLogin();
 
@@ -166,18 +168,19 @@ public class RegisterFragment extends Fragment {
             }
         });
     }
-    private void  redirectToLogin(){
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LoginFragment()).commit();
+
+    private void redirectToLogin() {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
 
     }
 
-    private void saveDisplayName(){
-        String displayName =  mUsernameView.getText().toString();
-        SharedPreferences prefs = getActivity().getSharedPreferences(CHAT_PREFS,0);
-        prefs.edit().putString(DISPLAY_NAME_KEY,displayName).apply();
+    private void saveDisplayName() {
+        String displayName = mUsernameView.getText().toString();
+        SharedPreferences prefs = getActivity().getSharedPreferences(CHAT_PREFS, 0);
+        prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
-    private void ShowErrorDialog(){
+    private void ShowErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title);

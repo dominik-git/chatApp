@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -73,7 +74,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        mAuth= FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         mEmailView = (AutoCompleteTextView) v.findViewById(R.id.login_email);
         mPasswordView = (EditText) v.findViewById(R.id.login_password);
 
@@ -88,41 +89,40 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
-        private void attemptLogin() {
-            String email = mEmailView.getText().toString();
-            String password = mPasswordView.getText().toString();
-            if(email.equals("") || password.equals("")){
-                return;
-            }
-            Toast.makeText(getActivity(),"Login...",Toast.LENGTH_SHORT);
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
+    private void attemptLogin() {
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        if (email.equals("") || password.equals("")) {
+            return;
+        }
+        Toast.makeText(getActivity(), "Login...", Toast.LENGTH_SHORT);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
 
-                    if(!task.isSuccessful()){
-                        System.out.println("Login not successful "+ task.getException());
-                        ShowErrorDialog();
-                    }else{
-                        Intent intent = new Intent(getActivity(), MainChatActivity.class);
-                        startActivity(intent);
-                    }
+                if (!task.isSuccessful()) {
+                    System.out.println("Login not successful " + task.getException());
+                    ShowErrorDialog();
+                } else {
+                    Intent intent = new Intent(getActivity(), MainChatActivity.class);
+                    startActivity(intent);
                 }
-            });
+            }
+        });
 
 
+    }
 
-        }
+    // TODO: Show error on screen with an alert dialog
 
-        // TODO: Show error on screen with an alert dialog
-
-        private void ShowErrorDialog(){
-            // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            // 2. Chain together various setter methods to set the dialog characteristics
-            builder.setMessage(R.string.login_dialog_message)
-                    .setTitle(R.string.login_dialog_title);
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
+    private void ShowErrorDialog() {
+        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(R.string.login_dialog_message)
+                .setTitle(R.string.login_dialog_title);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
 }

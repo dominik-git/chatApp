@@ -8,22 +8,22 @@
 
     <fragment
         android:id="@+id/register"
-        android:name="com.example.myapplication.RegisterFragment"
+        android:name="com.example.myapplication.ui.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/photo"
-        android:name="com.example.myapplication.PhotoFragment"
+        android:name="com.example.myapplication.ui.PhotoFragment"
         android:label="fragment_photo"
         tools:layout="@layout/fragment_photo" />
     <fragment
         android:id="@+id/login"
-        android:name="com.example.myapplication.LoginFragment"
+        android:name="com.example.myapplication.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/webview"
-        android:name="com.example.myapplication.WebviewFragment"
+        android:name="com.example.myapplication.ui.WebviewFragment"
         android:label="fragment_webview"
         tools:layout="@layout/fragment_webview" />
 </navigation>

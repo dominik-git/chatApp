@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.data;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.myapplication.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -54,20 +55,21 @@ public class ChatListAdapter extends BaseAdapter {
     };
 
 
-    public ChatListAdapter(Activity activity,DatabaseReference ref,String name){
-    this.mActivity = activity;
-    this.mDatabaseReference= ref.child("messages");
-    this.mDatabaseReference.addChildEventListener(mListener);
-    this.mDisplayName = name;
-    this.mSnapshotList = new ArrayList<>();
+    public ChatListAdapter(Activity activity, DatabaseReference ref, String name) {
+        this.mActivity = activity;
+        this.mDatabaseReference = ref.child("messages");
+        this.mDatabaseReference.addChildEventListener(mListener);
+        this.mDisplayName = name;
+        this.mSnapshotList = new ArrayList<>();
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         TextView authorName;
         TextView body;
         ImageView image;
         LinearLayout.LayoutParams params;
     }
+
     @Override
     public int getCount() {
 
@@ -88,9 +90,9 @@ public class ChatListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.activity_msg_row,viewGroup,false);
+            view = inflater.inflate(R.layout.activity_msg_row, viewGroup, false);
             final ViewHolder viewHolder = new ViewHolder();
             viewHolder.authorName = (TextView) view.findViewById(R.id.author);
             viewHolder.body = (TextView) view.findViewById(R.id.message);
@@ -98,7 +100,7 @@ public class ChatListAdapter extends BaseAdapter {
             view.setTag(viewHolder);
         }
         final InstantMessage message = getItem(i);
-        final ViewHolder  viewHolder = (ViewHolder) view.getTag();
+        final ViewHolder viewHolder = (ViewHolder) view.getTag();
         String author = message.getAuthor();
         viewHolder.authorName.setText(author);
         String msg = message.getMessage();
@@ -106,7 +108,8 @@ public class ChatListAdapter extends BaseAdapter {
 
         return view;
     }
-    public void cleanup(){
+
+    public void cleanup() {
         mDatabaseReference.removeEventListener(mListener);
     }
 }

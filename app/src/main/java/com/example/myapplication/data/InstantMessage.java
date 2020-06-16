@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.data;
 
 public class InstantMessage {
     private String message;
@@ -7,9 +7,6 @@ public class InstantMessage {
     public InstantMessage(String message, String author) {
         this.message = message;
         this.author = author;
-    }
-    public InstantMessage (){
-
     }
 
     public String getMessage() {
