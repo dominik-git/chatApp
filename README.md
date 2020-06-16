@@ -20,3 +20,14 @@ Na obhajobu je potrebných aspoň 11 bodov, technologické črty sú maximálne 
 - Aktivity a fragmenty: max. 6 bodov
 
 ## Použité knižnice
+
+## Implementované črty:
+- Lokalizácia v dvoch jazykoch - 1 bod
+- Zdrojové kódy na GitHube - 1 bod
+- Dialóg - 1 bod
+- WebView - 1 bod
+- SharedPreferences - 1 bod
+- NavHost fragment - 1 bod
+- RecyclerView - 1 bod
+- 6 bodov za aktivity a fragmenty
+- Dokopy: 13 bodov
