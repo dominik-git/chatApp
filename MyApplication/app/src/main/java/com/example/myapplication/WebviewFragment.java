@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Photo#newInstance} factory method to
+ * Use the {@link WebviewFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Photo extends Fragment {
+public class WebviewFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,8 +26,9 @@ public class Photo extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private WebView webView;
 
-    public Photo() {
+    public WebviewFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +38,11 @@ public class Photo extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Photo.
+     * @return A new instance of fragment Webview.
      */
     // TODO: Rename and change types and number of parameters
-    public static Photo newInstance(String param1, String param2) {
-        Photo fragment = new Photo();
+    public static WebviewFragment newInstance(String param1, String param2) {
+        WebviewFragment fragment = new WebviewFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,12 +57,25 @@ public class Photo extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_photo, container, false);
+        View v = inflater.inflate(R.layout.fragment_webview, container, false);
+
+        webView = (WebView) v.findViewById(R.id.webview_widget);
+        webView.loadUrl("https://s.ics.upjs.sk/~dominik_kolesar/AndroidWeb/");
+
+        // Enable Javascript
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        // Force links and redirects to open in the WebView instead of in a browser
+        webView.setWebViewClient(new WebViewClient());
+
+        return v;
     }
 }

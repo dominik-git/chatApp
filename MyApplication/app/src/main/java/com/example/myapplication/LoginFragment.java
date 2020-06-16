@@ -20,14 +20,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.concurrent.Executor;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Login#newInstance} factory method to
+ * Use the {@link LoginFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Login extends Fragment {
+public class LoginFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -38,7 +36,7 @@ public class Login extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Login() {
+    public LoginFragment() {
         // Required empty public constructor
     }
 
@@ -51,8 +49,8 @@ public class Login extends Fragment {
      * @return A new instance of fragment Login.
      */
     // TODO: Rename and change types and number of parameters
-    public static Login newInstance(String param1, String param2) {
-        Login fragment = new Login();
+    public static LoginFragment newInstance(String param1, String param2) {
+        LoginFragment fragment = new LoginFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

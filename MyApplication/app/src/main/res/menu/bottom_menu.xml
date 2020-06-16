@@ -4,4 +4,5 @@
     <item android:title="Login" android:icon="@drawable/ic_login" android:id="@+id/login" />
     <item android:title="Register" android:icon="@drawable/ic_register" android:id="@+id/register"/>
     <item android:title="Photo" android:icon="@drawable/ic_photo" android:id="@+id/photo" />
+    <item android:title="Photo" android:icon="@drawable/ic_web" android:id="@+id/webview" />
 </menu>

@@ -28,7 +28,6 @@ public class ChatListAdapter extends BaseAdapter {
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
             mSnapshotList.add(dataSnapshot);
             notifyDataSetChanged();
         }
@@ -61,7 +60,6 @@ public class ChatListAdapter extends BaseAdapter {
     this.mDatabaseReference.addChildEventListener(mListener);
     this.mDisplayName = name;
     this.mSnapshotList = new ArrayList<>();
-
     }
 
     static class ViewHolder{
