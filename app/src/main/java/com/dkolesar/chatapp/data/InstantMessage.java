@@ -24,4 +24,14 @@ public class InstantMessage {
     public void setAuthor(String author) {
         this.author = author;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+
+        InstantMessage message = (InstantMessage) obj;
+
+        return message.message.equals(this.message) && message.author.equals(this.author);
+    }
 }

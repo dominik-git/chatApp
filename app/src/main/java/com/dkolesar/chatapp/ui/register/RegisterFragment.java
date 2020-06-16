@@ -2,12 +2,8 @@ package com.dkolesar.chatapp.ui.register;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +11,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+
 import com.dkolesar.chatapp.R;
-import com.dkolesar.chatapp.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static com.dkolesar.chatapp.utils.Constants.APPLICATION_TAG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -113,13 +114,13 @@ public class RegisterFragment extends Fragment {
     private void createFirebaseUser() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        System.out.println(email + " " + password);
+        Log.d(APPLICATION_TAG, email + " " + password);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("success" + task.getException());
+                Log.d(APPLICATION_TAG, "success");
                 if (!task.isSuccessful()) {
-                    ShowErrorDialog();
+                    showErrorDialog();
                 } else {
                     saveDisplayName();
                     redirectToLogin();
@@ -141,7 +142,7 @@ public class RegisterFragment extends Fragment {
         prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
-    private void ShowErrorDialog() {
+    private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title);

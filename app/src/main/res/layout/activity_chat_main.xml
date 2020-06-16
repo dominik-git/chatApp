@@ -10,8 +10,8 @@
     android:background="@color/light_purple"
     tools:context="com.dkolesar.chatapp.ui.chat.ChatActivity">
 
-    <ListView
-        android:id="@+id/chat_list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_messages"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/listFooter"

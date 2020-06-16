@@ -22,6 +22,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.dkolesar.chatapp.utils.Constants.APPLICATION_TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -62,7 +64,7 @@ public class LoginFragment extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (!task.isSuccessful()) {
-                    Log.e("APP", "Login not successful " + task.getException());
+                    Log.e(APPLICATION_TAG, "Login not successful " + task.getException());
                     showErrorDialog();
                 } else {
                     Intent intent = new Intent(getActivity(), ChatActivity.class);

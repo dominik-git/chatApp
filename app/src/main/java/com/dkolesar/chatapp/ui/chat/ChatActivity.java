@@ -1,33 +1,42 @@
 package com.dkolesar.chatapp.ui.chat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.dkolesar.chatapp.data.ChatListAdapter;
-import com.dkolesar.chatapp.data.InstantMessage;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.dkolesar.chatapp.R;
+import com.dkolesar.chatapp.data.ChatMessageAdapter;
+import com.dkolesar.chatapp.data.InstantMessage;
 import com.dkolesar.chatapp.ui.register.RegisterActivity;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.dkolesar.chatapp.utils.Constants.APPLICATION_TAG;
 
 
 public class ChatActivity extends AppCompatActivity {
 
     private String mDisplayName;
-    private ListView mChatListView;
+    private RecyclerView mChatMessages;
     private EditText mInputText;
-
     private DatabaseReference mDatabaseReference;
-    private ChatListAdapter mAdapter;
+    private ChatMessageAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +44,12 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_main);
 
         setupDisplayedName();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("messages");
         mInputText = findViewById(R.id.messageInput);
         ImageButton mSendButton = findViewById(R.id.sendButton);
-        mChatListView = findViewById(R.id.chat_list_view);
+        mChatMessages = findViewById(R.id.chat_messages);
+        mChatMessages.setLayoutManager(new LinearLayoutManager(this));
+
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -66,11 +77,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-        System.out.println("send message");
+        Log.d(APPLICATION_TAG, "send message");
         String input = mInputText.getText().toString();
         if (!input.equals("")) {
             InstantMessage message = new InstantMessage(input, mDisplayName);
-            mDatabaseReference.child("messages").push().setValue(message);
+            mDatabaseReference.push().setValue(message);
             mInputText.setText("");
         }
 
@@ -79,14 +90,49 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter = new ChatListAdapter(this, mDatabaseReference, mDisplayName);
-        mChatListView.setAdapter(mAdapter);
+        mAdapter = new ChatMessageAdapter();
+        mChatMessages.setAdapter(mAdapter);
+        this.mDatabaseReference.addChildEventListener(mListener);
 
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mAdapter.cleanup();
+        mDatabaseReference.removeEventListener(mListener);
     }
+
+    // FIXME: Move to ViewModel
+    private ChildEventListener mListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            // FIXME Avoid for loop, rework to livedata
+            List<InstantMessage> messages = new ArrayList<>();
+            for (DataSnapshot item : dataSnapshot.getChildren()) {
+                messages.add(item.getValue(InstantMessage.class));
+            }
+
+            mAdapter.submitList(messages);
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, String s) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    };
 }

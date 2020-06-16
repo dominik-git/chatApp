@@ -3,16 +3,13 @@ package com.dkolesar.chatapp.ui.register;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-
-import android.text.TextUtils;
-
-import android.view.KeyEvent;
-
-import android.view.inputmethod.EditorInfo;
-
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +22,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static com.dkolesar.chatapp.utils.Constants.APPLICATION_TAG;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -127,15 +126,14 @@ public class RegisterActivity extends AppCompatActivity {
     private void createFirebaseUser() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        System.out.println(email + " " + password);
+        Log.d(APPLICATION_TAG, email + " " + password);
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("success");
-                System.out.println("success" + task.getException());
+                Log.d(APPLICATION_TAG, "success");
                 if (!task.isSuccessful()) {
-
-                    ShowErrorDialog();
+                    Log.d(APPLICATION_TAG, "failure" + task.getException());
+                    showErrorDialog();
                 } else {
                     saveDisplayName();
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -153,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
         prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
-    private void ShowErrorDialog() {
+    private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title);
