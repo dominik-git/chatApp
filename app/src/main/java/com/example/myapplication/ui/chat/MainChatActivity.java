@@ -1,4 +1,4 @@
-package com.example.myapplication.ui;
+package com.example.myapplication.ui.chat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.myapplication.data.ChatListAdapter;
 import com.example.myapplication.data.InstantMessage;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.register.RegisterActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

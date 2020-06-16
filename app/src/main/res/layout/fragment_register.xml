@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#009688"
     android:orientation="vertical"
-    tools:context=".ui.RegisterFragment">
+    tools:context=".ui.register.RegisterFragment">
 
     <AutoCompleteTextView
         android:id="@+id/register_username"

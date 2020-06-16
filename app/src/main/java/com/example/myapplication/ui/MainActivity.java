@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.about.AboutFragment;
+import com.example.myapplication.ui.login.LoginFragment;
+import com.example.myapplication.ui.photo.PhotoFragment;
+import com.example.myapplication.ui.register.RegisterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new PhotoFragment();
                     break;
                 case R.id.webview:
-                    selectedFragment = new WebviewFragment();
+                    selectedFragment = new AboutFragment();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();

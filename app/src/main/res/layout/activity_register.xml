@@ -9,7 +9,7 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp"
 
-    tools:context="com.example.myapplication.ui.RegisterActivity"
+    tools:context="com.example.myapplication.ui.register.RegisterActivity"
     android:gravity="top">
 
 

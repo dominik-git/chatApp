@@ -1,4 +1,4 @@
-package com.example.myapplication.ui;
+package com.example.myapplication.ui.about;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.example.myapplication.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WebviewFragment extends Fragment {
+public class AboutFragment extends Fragment {
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override

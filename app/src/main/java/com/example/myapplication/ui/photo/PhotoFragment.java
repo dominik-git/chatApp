@@ -1,4 +1,4 @@
-package com.example.myapplication.ui;
+package com.example.myapplication.ui.photo;
 
 import android.os.Bundle;
 
