@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photo;
+package com.dkolesar.chatapp.ui.photo;
 
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.myapplication.R;
+import com.dkolesar.chatapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

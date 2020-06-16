@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.about;
+package com.dkolesar.chatapp.ui.about;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.R;
+import com.dkolesar.chatapp.R;
 
 /**
  * A simple {@link Fragment} subclass.

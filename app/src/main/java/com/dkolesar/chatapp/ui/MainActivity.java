@@ -1,4 +1,4 @@
-package com.example.myapplication.ui;
+package com.dkolesar.chatapp.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,11 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.R;
-import com.example.myapplication.ui.about.AboutFragment;
-import com.example.myapplication.ui.login.LoginFragment;
-import com.example.myapplication.ui.photo.PhotoFragment;
-import com.example.myapplication.ui.register.RegisterFragment;
+import com.dkolesar.chatapp.R;
+import com.dkolesar.chatapp.ui.about.AboutFragment;
+import com.dkolesar.chatapp.ui.login.LoginFragment;
+import com.dkolesar.chatapp.ui.photo.PhotoFragment;
+import com.dkolesar.chatapp.ui.register.RegisterFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {

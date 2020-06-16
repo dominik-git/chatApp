@@ -1,4 +1,4 @@
-package com.example.myapplication.data;
+package com.dkolesar.chatapp.data;
 
 public class InstantMessage {
     private String message;

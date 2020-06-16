@@ -1,38 +1,35 @@
-package com.example.myapplication.ui.register;
+package com.dkolesar.chatapp.ui.register;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-
-import android.text.TextUtils;
-
-import android.view.KeyEvent;
-
-import android.view.inputmethod.EditorInfo;
-
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.R;
-import com.example.myapplication.ui.login.LoginActivity;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.dkolesar.chatapp.R;
+import com.dkolesar.chatapp.ui.login.LoginFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegisterActivity extends AppCompatActivity {
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class RegisterFragment extends Fragment {
     // Constants
     public static final String CHAT_PREFS = "ChatPrefs";
     public static final String DISPLAY_NAME_KEY = "username";
 
-    // UI references.
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
@@ -41,36 +38,24 @@ public class RegisterActivity extends AppCompatActivity {
     // Firebase instance variables
     private FirebaseAuth mAuth;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_register, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        mEmailView = v.findViewById(R.id.register_email);
+        mPasswordView = v.findViewById(R.id.register_password);
+        mConfirmPasswordView = v.findViewById(R.id.register_confirm_password);
+        mUsernameView = v.findViewById(R.id.register_username);
+        Button mLoginButton = v.findViewById(R.id.register_sign_up_button);
 
-        mEmailView = findViewById(R.id.register_email);
-        mPasswordView = findViewById(R.id.register_password);
-        mConfirmPasswordView = findViewById(R.id.register_confirm_password);
-        mUsernameView = findViewById(R.id.register_username);
-
-        // Keyboard sign in action
-        mConfirmPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == 100 || id == EditorInfo.IME_NULL) {
-                    attemptRegistration();
-                    return true;
-                }
-                return false;
+            public void onClick(View view) {
+                attemptRegistration();
             }
         });
-
-        mAuth = FirebaseAuth.getInstance();
-
-    }
-
-    // Executed when Sign Up button is pressed.
-    public void signUp(View v) {
-        attemptRegistration();
+        return v;
     }
 
     private void attemptRegistration() {
@@ -124,37 +109,40 @@ public class RegisterActivity extends AppCompatActivity {
         return confirmPassword.equals(password) && password.length() > 4;
     }
 
+    // TODO: Create a Firebase user
     private void createFirebaseUser() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
         System.out.println(email + " " + password);
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                System.out.println("success");
                 System.out.println("success" + task.getException());
                 if (!task.isSuccessful()) {
-
                     ShowErrorDialog();
                 } else {
                     saveDisplayName();
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    finish();
-                    startActivity(intent);
+                    redirectToLogin();
+
                 }
             }
         });
     }
 
+    // TODO replace with navigation
+    private void redirectToLogin() {
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
+
+    }
 
     private void saveDisplayName() {
         String displayName = mUsernameView.getText().toString();
-        SharedPreferences prefs = getSharedPreferences(CHAT_PREFS, 0);
+        SharedPreferences prefs = requireActivity().getSharedPreferences(CHAT_PREFS, 0);
         prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
     }
 
     private void ShowErrorDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.dialog_message)
                 .setTitle(R.string.dialog_title);
         AlertDialog dialog = builder.create();
