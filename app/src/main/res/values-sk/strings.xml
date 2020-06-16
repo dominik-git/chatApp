@@ -31,7 +31,6 @@
     <string name="register_fragment">Prázdny registračný fragment</string>
     <string name="hello_blank_fragment">Prázdny uvítací fragment</string>
     <string name="action_about">O aplikácii</string>
-    <string name="photo">Fotografia</string>
     <string name="login">Prihlásenie</string>
     <string name="register">Registrácia</string>
 </resources>

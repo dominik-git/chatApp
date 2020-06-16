@@ -3,6 +3,5 @@
 
     <item android:title="@string/login" android:icon="@drawable/ic_login" android:id="@id/login" />
     <item android:title="@string/register" android:icon="@drawable/ic_register" android:id="@id/register"/>
-    <item android:title="@string/photo" android:icon="@drawable/ic_photo" android:id="@id/photo" />
     <item android:title="@string/action_about" android:icon="@drawable/ic_web" android:id="@id/about" />
 </menu>

@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class MainChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
 
     private String mDisplayName;
     private ListView mChatListView;

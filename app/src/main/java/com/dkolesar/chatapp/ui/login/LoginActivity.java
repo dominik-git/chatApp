@@ -3,6 +3,7 @@ package com.dkolesar.chatapp.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -14,7 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.dkolesar.chatapp.R;
-import com.dkolesar.chatapp.ui.chat.MainChatActivity;
+import com.dkolesar.chatapp.ui.chat.ChatActivity;
 import com.dkolesar.chatapp.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // TODO: Complete the attemptLogin() method
     private void attemptLogin() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -84,10 +84,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (!task.isSuccessful()) {
-                    System.out.println("Login not successful " + task.getException());
-                    ShowErrorDialog();
+                    Log.e("Chat App", "Login not successful " + task.getException());
+                    showErrorDialog();
                 } else {
-                    Intent intent = new Intent(LoginActivity.this, MainChatActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
                     finish();
                     startActivity(intent);
                 }
@@ -97,12 +97,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    // TODO: Show error on screen with an alert dialog
-
-    private void ShowErrorDialog() {
-        // 1. Instantiate an <code><a href="/reference/android/app/AlertDialog.Builder.html">AlertDialog.Builder</a></code> with its constructor
+    private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // 2. Chain together various setter methods to set the dialog characteristics
         builder.setMessage(R.string.login_dialog_message)
                 .setTitle(R.string.login_dialog_title);
         AlertDialog dialog = builder.create();

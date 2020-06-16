@@ -16,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.dkolesar.chatapp.R;
-import com.dkolesar.chatapp.ui.chat.MainChatActivity;
+import com.dkolesar.chatapp.ui.chat.ChatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -63,16 +63,16 @@ public class LoginFragment extends Fragment {
 
                 if (!task.isSuccessful()) {
                     Log.e("APP", "Login not successful " + task.getException());
-                    ShowErrorDialog();
+                    showErrorDialog();
                 } else {
-                    Intent intent = new Intent(getActivity(), MainChatActivity.class);
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
                     startActivity(intent);
                 }
             }
         });
     }
 
-    private void ShowErrorDialog() {
+    private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setMessage(R.string.login_dialog_message)
                 .setTitle(R.string.login_dialog_title);
