@@ -23,6 +23,7 @@ public class ChatMessageAdapter extends ListAdapter<InstantMessage, ChatMessageA
     public ChatMessageItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.list_chat_message, parent, false);
+
         return new ChatMessageItemViewHolder(view);
     }
 
@@ -46,7 +47,6 @@ public class ChatMessageAdapter extends ListAdapter<InstantMessage, ChatMessageA
         public void bindTo(InstantMessage message) {
             authorName.setText(message.getAuthor());
             this.message.setText(message.getMessage());
-
         }
     }
 

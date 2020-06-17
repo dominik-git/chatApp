@@ -11,17 +11,24 @@
     android:background="@color/light_purple"
     tools:context="com.dkolesar.chatapp.ui.chat.ChatActivity">
 
+    <TextView
+        android:id="@+id/countryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_messages"
-        android:layout_width="fill_parent"
+        android:layout_width="395dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/listFooter"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="21dp"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:transcriptMode="alwaysScroll"
-        app:reverseLayout="true"
-        />
+        app:reverseLayout="true" />
 
     <LinearLayout
         android:id="@+id/listFooter"

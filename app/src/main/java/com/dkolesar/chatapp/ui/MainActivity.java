@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -47,21 +48,28 @@ public class MainActivity extends AppCompatActivity {
 
         NavController navController = Navigation.findNavController(this, R.id.fragment);
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+
+
+
+
         NavigationUI.setupWithNavController(bottomNav, navController);
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
+//        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 10, locationListener);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
         try {
             country = getAddress(latitude,longitude);
-        } catch (IOException e) {
+            System.out.println("main aktivity "+country);
+            SharedPreferences prefs = getSharedPreferences("CHAT_PREFS", 0);
+            prefs.edit().putString("country", country).apply();
+        }
+         catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(country+" sdasd");
 
     }
 
@@ -82,4 +90,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return countryName;
     }
+
+
+
 }

@@ -27,7 +27,7 @@ public class AboutFragment extends Fragment {
 
         WebView webView = v.findViewById(R.id.webview_widget);
         webView.loadUrl("https://s.ics.upjs.sk/~dominik_kolesar/AndroidWeb/");
-
+//        webView.loadUrl("https://google.sk");
         // Enable Javascript
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

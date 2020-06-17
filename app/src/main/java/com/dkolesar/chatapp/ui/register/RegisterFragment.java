@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -56,6 +57,7 @@ public class RegisterFragment extends Fragment {
                 attemptRegistration();
             }
         });
+
         return v;
     }
 
@@ -99,8 +101,6 @@ public class RegisterFragment extends Fragment {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
         } else {
             this.createFirebaseUser();
@@ -118,7 +118,6 @@ public class RegisterFragment extends Fragment {
         return confirmPassword.equals(password) && password.length() > 4;
     }
 
-    // TODO: Create a Firebase user
     private void createFirebaseUser() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -126,7 +125,6 @@ public class RegisterFragment extends Fragment {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d(APPLICATION_TAG, "success");
                 if (!task.isSuccessful()) {
                     showErrorDialog();
                 } else {
@@ -138,16 +136,18 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    // TODO replace with navigation
     private void redirectToLogin() {
-//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LoginFragment()).commit();
-
+        Toast.makeText(getActivity(), "Register successfully...", Toast.LENGTH_SHORT).show();
+        mEmailView.setText("");
+        mPasswordView.setText("");
+        mConfirmPasswordView.setText("");
+        mUsernameView.setText("");
     }
 
     private void saveDisplayName() {
         String displayName = mUsernameView.getText().toString();
-        SharedPreferences prefs = requireActivity().getSharedPreferences(CHAT_PREFS, 0);
-        prefs.edit().putString(DISPLAY_NAME_KEY, displayName).apply();
+        SharedPreferences prefs = requireActivity().getSharedPreferences("CHAT_PREFS", 0);
+        prefs.edit().putString("username", displayName).apply();
     }
 
     private void showErrorDialog() {

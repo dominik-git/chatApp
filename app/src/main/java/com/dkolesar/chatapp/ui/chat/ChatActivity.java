@@ -35,6 +35,7 @@ public class ChatActivity extends AppCompatActivity {
     private String mDisplayName;
     private RecyclerView mChatMessages;
     private EditText mInputText;
+    private TextView mCountry;
     private DatabaseReference mDatabaseReference;
     private ChatMessageAdapter mAdapter;
     private ArrayList<DataSnapshot> mSnapshotList;
@@ -44,22 +45,22 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_main);
-
-        setupDisplayedName();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("messages");
         mInputText = findViewById(R.id.messageInput);
+        mCountry = findViewById(R.id.countryName);
         ImageButton mSendButton = findViewById(R.id.sendButton);
         mChatMessages = findViewById(R.id.chat_messages);
         mChatMessages.setLayoutManager(new LinearLayoutManager(this));
+        setupDisplayedName();
         this.mSnapshotList = new ArrayList<>();
 
-        mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                sendMessage();
-                return true;
-            }
-        });
+//        mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//                sendMessage();
+//                return true;
+//            }
+//        });
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,17 +71,25 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupDisplayedName() {
-        SharedPreferences prefs = getSharedPreferences(RegisterFragment.CHAT_PREFS, MODE_PRIVATE);
-        mDisplayName = prefs.getString(RegisterFragment.DISPLAY_NAME_KEY, null);
+        SharedPreferences prefs = getSharedPreferences("CHAT_PREFS", MODE_PRIVATE);
+        mDisplayName = prefs.getString("username", null);
         if (mDisplayName == null) {
             mDisplayName = "";
         }
+        String countryName =  prefs.getString("country", null);
+        System.out.println(countryName+"before");
+        if(countryName == null){
+            countryName = "Inaccessible";
+            mCountry.setText(countryName);
+        }else{
+            mCountry.setText(countryName);
+        }
+
         System.out.println("hello "+mDisplayName);
 
     }
 
     private void sendMessage() {
-        Log.d(APPLICATION_TAG, "send message");
         String input = mInputText.getText().toString();
         if (!input.equals("")) {
             InstantMessage message = new InstantMessage(input, mDisplayName);
@@ -115,6 +124,8 @@ public class ChatActivity extends AppCompatActivity {
                 DataSnapshot snapshot = mSnapshotList.get(i);
                 messages.add(snapshot.getValue(InstantMessage.class));
             }
+            mChatMessages.smoothScrollToPosition((messages.size()-1));
+
 //            for (DataSnapshot item : dataSnapshot.getChildren()) {
 //            InstantMessage message = item.getValue(InstantMessage.class);
 //               messages.add(message);
