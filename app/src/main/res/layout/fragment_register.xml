@@ -3,86 +3,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#009688"
+    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ui.register.RegisterFragment">
+    tools:context=".ui.register.RegisterFragment"
+    android:gravity="bottom"
+    >
 
     <AutoCompleteTextView
         android:id="@+id/register_username"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_margin="10dp"
         android:hint="@string/prompt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EditTextviewStyle"
         android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:textIsSelectable="false"
-        android:textSize="25sp"
-        android:textStyle="bold"
         />
 
 
     <AutoCompleteTextView
         android:id="@+id/register_email"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
+        style="@style/EditTextviewStyle"
         android:hint="@string/prompt_email"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:textIsSelectable="false"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+         />
 
 
     <EditText
         android:id="@+id/register_password"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
+        style="@style/EditTextviewStyle"
         android:hint="@string/prompt_password"
         android:imeOptions="actionNext"
         android:inputType="textPassword"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        />
 
-
-    <!--    </android.support.design.widget.TextInputLayout>-->
 
     <EditText
         android:id="@+id/register_confirm_password"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
+        style="@style/EditTextviewStyle"
         android:hint="@string/prompt_password_again"
         android:imeActionId="100"
         android:imeActionLabel="@string/action_sign_up"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+       />
 
     <Button
         android:id="@+id/register_sign_up_button"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_margin="10dp"
-        android:background="@color/white"
+        android:background="@drawable/btn_rounded"
+        android:textColor="@color/white"
         android:text="@string/action_sign_up"
-        android:textColor="@color/green"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        />
 
 
 </LinearLayout>

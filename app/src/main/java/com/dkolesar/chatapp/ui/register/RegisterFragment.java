@@ -68,6 +68,7 @@ public class RegisterFragment extends Fragment {
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String username = mUsernameView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -75,9 +76,16 @@ public class RegisterFragment extends Fragment {
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
+           focusView = mPasswordView;
             cancel = true;
         }
+
+        if (TextUtils.isEmpty(username)) {
+            mUsernameView.setError(getString(R.string.error_field_required));
+           focusView = mUsernameView;
+            cancel = true;
+        }
+
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -86,7 +94,7 @@ public class RegisterFragment extends Fragment {
             cancel = true;
         } else if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+           focusView = mEmailView;
             cancel = true;
         }
 

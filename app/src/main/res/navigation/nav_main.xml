@@ -9,7 +9,11 @@
         android:id="@+id/register"
         android:name="com.dkolesar.chatapp.ui.register.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_register_to_login"
+            app:destination="@id/login" />
+    </fragment>
     <fragment
         android:id="@+id/login"
         android:name="com.dkolesar.chatapp.ui.login.LoginFragment"

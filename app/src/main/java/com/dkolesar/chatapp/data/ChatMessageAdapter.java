@@ -54,16 +54,15 @@ public class ChatMessageAdapter extends ListAdapter<InstantMessage, ChatMessageA
             new DiffUtil.ItemCallback<InstantMessage>() {
                 @Override
                 public boolean areItemsTheSame(
-                        @NonNull InstantMessage oldUser, @NonNull InstantMessage newUser) {
+                        @NonNull InstantMessage oldMessage, @NonNull InstantMessage message) {
                     // User properties may have changed if reloaded from the DB, but ID is fixed
-                    // FIXME: return message.getId() == message.getId();
                     return false;
                 }
 
                 @Override
                 public boolean areContentsTheSame(
-                        @NonNull InstantMessage oldUser, @NonNull InstantMessage newUser) {
-                    return oldUser.equals(newUser);
+                        @NonNull InstantMessage oldMessage, @NonNull InstantMessage message) {
+                    return oldMessage.equals(message);
                 }
             };
 }

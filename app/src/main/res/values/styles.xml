@@ -5,6 +5,28 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
+
+    <style name="EditTextviewStyle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColorHint">@color/darkGrey</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextviewStyleMessage">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:layout_margin">5dip</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+
 
 </resources>

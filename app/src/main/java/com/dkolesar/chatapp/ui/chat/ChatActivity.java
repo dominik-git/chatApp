@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dkolesar.chatapp.R;
 import com.dkolesar.chatapp.data.ChatMessageAdapter;
 import com.dkolesar.chatapp.data.InstantMessage;
-import com.dkolesar.chatapp.ui.register.RegisterActivity;
+import com.dkolesar.chatapp.ui.register.RegisterFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,6 +37,8 @@ public class ChatActivity extends AppCompatActivity {
     private EditText mInputText;
     private DatabaseReference mDatabaseReference;
     private ChatMessageAdapter mAdapter;
+    private ArrayList<DataSnapshot> mSnapshotList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class ChatActivity extends AppCompatActivity {
         ImageButton mSendButton = findViewById(R.id.sendButton);
         mChatMessages = findViewById(R.id.chat_messages);
         mChatMessages.setLayoutManager(new LinearLayoutManager(this));
-
+        this.mSnapshotList = new ArrayList<>();
 
         mInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -68,11 +70,12 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupDisplayedName() {
-        SharedPreferences prefs = getSharedPreferences(RegisterActivity.CHAT_PREFS, MODE_PRIVATE);
-        mDisplayName = prefs.getString(RegisterActivity.DISPLAY_NAME_KEY, null);
+        SharedPreferences prefs = getSharedPreferences(RegisterFragment.CHAT_PREFS, MODE_PRIVATE);
+        mDisplayName = prefs.getString(RegisterFragment.DISPLAY_NAME_KEY, null);
         if (mDisplayName == null) {
             mDisplayName = "";
         }
+        System.out.println("hello "+mDisplayName);
 
     }
 
@@ -102,17 +105,22 @@ public class ChatActivity extends AppCompatActivity {
         mDatabaseReference.removeEventListener(mListener);
     }
 
-    // FIXME: Move to ViewModel
     private ChildEventListener mListener = new ChildEventListener() {
         @Override
         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-            // FIXME Avoid for loop, rework to livedata
+            mSnapshotList.add(dataSnapshot);
             List<InstantMessage> messages = new ArrayList<>();
-            for (DataSnapshot item : dataSnapshot.getChildren()) {
-                messages.add(item.getValue(InstantMessage.class));
-            }
 
-            mAdapter.submitList(messages);
+            for (int i = 0; i < mSnapshotList.size() ; i++) {
+                DataSnapshot snapshot = mSnapshotList.get(i);
+                messages.add(snapshot.getValue(InstantMessage.class));
+            }
+//            for (DataSnapshot item : dataSnapshot.getChildren()) {
+//            InstantMessage message = item.getValue(InstantMessage.class);
+//               messages.add(message);
+//           }
+
+          mAdapter.submitList(messages);
         }
 
         @Override

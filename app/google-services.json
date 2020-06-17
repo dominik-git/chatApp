@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:572114584662:android:e5ec9510b1939b98a927f7",
         "android_client_info": {
-          "package_name": "com.dkolesar.chatapp"
+          "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
